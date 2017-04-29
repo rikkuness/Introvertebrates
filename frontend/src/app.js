@@ -22,9 +22,9 @@ UserCtrl.$$ngIsClass = true
 
 // Load all features
 import home from './features/home'
-import images from './features/images'
+import species from './features/species'
 import map from './features/map'
 
-angular.module('trackwild', [uirouter, moment, resource, home, images, map])
+angular.module('trackwild', [uirouter, moment, resource, home, species, map])
   .controller('UserCtrl', UserCtrl)
   .config(routing)

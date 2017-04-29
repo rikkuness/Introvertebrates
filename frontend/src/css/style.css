@@ -53,3 +53,12 @@
 
 /* MAIN PAGE */
 .page-content { margin: 50px 20px 20px 20px; }
+
+/*
+.mdl-layout__content {
+  background-image: url('../img/bg.jpg');
+  opacity: 0.3;
+  filter: alpha(opacity=10);
+  z-index: -1000;
+}
+*/
