@@ -1,0 +1,28 @@
+doctype html
+html(lang='en', ng-app='trackwild', ng-controller='UserCtrl as user')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='description', content='TrackWild, track migrating animals in the wild.')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, minimum-scale=1.0', user-scalable='0')
+    base(href='/')
+    title TrackWild
+
+  body(ng-cloak)
+    .mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer
+      .app-drawer.mdl-layout__drawer
+        span.mdl-layout-title
+          img.main-logo(src=require('./img/swallow.svg'))
+
+        nav.mdl-navigation
+          a.mdl-navigation__link(ui-sref='home') Home
+          .app-drawer-separator
+          a.mdl-navigation__link(ui-sref='map') Map
+          a.mdl-navigation__link(ui-sref='images') Images
+              
+      //- Main layout
+      .mdl-layout__content
+        .mdl-logout(ng-show='user.user')
+          div #[span(ng-bind='user.user.name')]
+          a(href='/logout', target='_self') Logout
+        .page-content(ui-view)

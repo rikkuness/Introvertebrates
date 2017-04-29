@@ -1,0 +1,4 @@
+
+
+## Installing packages for python
+sudo pip install $PACKAGENAME -t $(pwd)
