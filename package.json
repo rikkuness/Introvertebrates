@@ -1,8 +1,8 @@
 {
-  "name": "introvertabrates",
+  "name": "trackwild",
   "version": "1.0.1",
   "scripts": {
-    "postinstall": "webpack",
+    "postinstall": "cd frontend;webpack",
     "start": "node frontend/main.js"
   },
   "dependencies": {
