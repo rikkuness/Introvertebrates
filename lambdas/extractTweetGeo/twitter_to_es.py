@@ -3,6 +3,7 @@ Created on Oct 8, 2015
 
 @author: mentzera
 '''
+import os
 from elasticsearch import Elasticsearch, Urllib3HttpConnection
 from elasticsearch.helpers import bulk
 import config
