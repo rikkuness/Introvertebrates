@@ -1,0 +1,16 @@
+{
+  "name": "elasticupload",
+  "version": "1.0.0",
+  "description": "Upload for geo data to elastic",
+  "main": "upload.js",
+  "scripts": {
+  "start": "node upload.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+   "canvas": "1",
+   "geotiff": "^0.3.3",
+   "uglify-js": "2"
+ }
+}
