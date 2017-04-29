@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "scripts": {
     "postinstall": "cd frontend;webpack",
-    "start": "node frontend/main.js"
+    "start": "cd frontend;node main.js"
   },
   "dependencies": {
     "angular": "^1.6.2",
