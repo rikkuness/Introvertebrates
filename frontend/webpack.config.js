@@ -6,7 +6,7 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 module.exports = {
   entry: {
-    main: './frontend/src/app.js'
+    main: './src/app.js'
   },
   output: {
     filename: 'index_bundle.js',
@@ -27,7 +27,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'frontend/src/index.pug',
+      template: 'src/index.pug',
       inject: true
     }),
     new CompressionPlugin({
@@ -37,6 +37,6 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8
     }),
-    new FaviconsWebpackPlugin('./frontend/src/img/favicon.png')
+    new FaviconsWebpackPlugin('./src/img/favicon.png')
   ]
 }
