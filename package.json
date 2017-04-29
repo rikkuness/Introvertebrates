@@ -1,9 +1,9 @@
 {
   "name": "introvertabrates",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "postinstall": "webpack",
-    "start": "node main.js"
+    "start": "node frontend/main.js"
   },
   "dependencies": {
     "angular": "^1.6.2",
