@@ -22,7 +22,9 @@ UserCtrl.$$ngIsClass = true
 
 // Load all features
 import home from './features/home'
+import images from './features/images'
+import map from './features/map'
 
-angular.module('Introvertebrates', [uirouter, moment, resource, home])
+angular.module('Introvertebrates', [uirouter, moment, resource, home, images, map])
   .controller('UserCtrl', UserCtrl)
   .config(routing)
