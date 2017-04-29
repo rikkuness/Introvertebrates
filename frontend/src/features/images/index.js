@@ -8,7 +8,7 @@ import ImageController from './images.controller'
 
 ImageController.$$ngIsClass = true
 
-export default angular.module('app.images', [uirouter])
+export default angular.module('trackwild.images', [uirouter])
   .config(routing)
   .controller('ImageController', ImageController)
   .name

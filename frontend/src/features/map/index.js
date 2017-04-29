@@ -12,7 +12,7 @@ import routing from './map.routes'
 import MapController from './map.controller'
 MapController.$$ngIsClass = true
 
-export default angular.module('app.map', [uirouter, 'nemLogging', 'ui-leaflet'])
+export default angular.module('trackwild.map', [uirouter, 'nemLogging', 'ui-leaflet'])
   .config(routing)
   .controller('MapController', MapController)
   .name

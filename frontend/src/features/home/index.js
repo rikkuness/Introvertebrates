@@ -8,7 +8,7 @@ import HomeController from './home.controller'
 
 HomeController.$$ngIsClass = true
 
-export default angular.module('app.home', [uirouter])
+export default angular.module('trackwild.home', [uirouter])
   .config(routing)
   .controller('HomeController', HomeController)
   .name
