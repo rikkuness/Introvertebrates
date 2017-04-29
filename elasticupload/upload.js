@@ -2,26 +2,34 @@ var GeoTIFF = require("geotiff");
 var fs = require("fs");
 var gdal = require("gdal");
 
- var path = "/Users/steven/Downloads/LC_hd_global_2012.tif";
+var async = require('async');
+var _ = require('underscore');
+
+var client = require('./client.js');
+const Queue = async.cargo((dataPoints, callback) => {
+  console.log("upladoing:" + dataPoints.length);
+  client.bulk({
+    body: dataPoints
+  }, (err, resp) => {
+    console.log(err, resp);
+    callback(err,resp);
+  })
+}, 200);
 
 
 
- //var mappingMap = fillMap();
-
+ var path = "/Users/steven/Downloads/LC_hd_global_2010.tif";
 
 var mapping = fillMap();
 
 var promise = readArray();
 promise.then(function (array) {
-  //console.log(array[]);
+
   console.log("-----initializing TIFF geo image-------");
   var dataset = gdal.open(path);
   var f = 0;
-  // console.log("number of bands: " + dataset.bands.count());
-  // console.log("width: " + dataset.rasterSize.x);
-  // console.log("height: " + dataset.rasterSize.y);
-  // console.log("geotransform: " + dataset.geoTransform);
-  // console.log("srs: " + (dataset.srs ? dataset.srs.toWKT() : 'null'));
+
+
 for (i = 1; i <= 296; ++i) {
 ++f;
   for(v = 1; v <= 720; v ++) {
@@ -49,38 +57,58 @@ var numb = array[numberfinal -1];
   console.log("the x coord is :" +Xgeo);
   console.log("the y coord is :" + Ygeo);
   console.log("----end------");
-}
-}
-console.log(f);
+
+var habitat = mapping[numb];
+var date = new Date('2015 01 01');
+Queue.push({
+index: {
+_index: 'geotiffdates1',
+_type: 'pixels',
+_id: numberfinal+Yline+Xpixel+habitat+Xgeo+Ygeo+date,
+}});
+Queue.push({
+  year:new Date('2015 01 01'),
+  number:numb,
+  yline:Yline,
+  xpixel:Xpixel,
+  habitat:habitat,
+  coordinates: {
+    coordinates: [Xgeo, Ygeo]
+  }
 });
 
 
-// var dataset = gdal.open(path);
-// console.log("number of bands: " + dataset.bands.count());
-// console.log("width: " + dataset.rasterSize.x);
-// console.log("height: " + dataset.rasterSize.y);
-// console.log("geotransform: " + dataset.geoTransform);
-// console.log("srs: " + (dataset.srs ? dataset.srs.toWKT() : 'null'));
+
+}
+}
+
+// var hund = batch.length / 100;
 //
-// var Xpixel = 720;
-// var Yline = 296;
-//
-//
-// var GT = dataset.geoTransform;
-// var Xgeo = GT[0] + Xpixel*GT[1] + Yline*GT[2];
-// var Ygeo = GT[3] + Xpixel*GT[4] + Yline*GT[5];
-//
-// console.log(Xgeo);
-// console.log(Ygeo);
-// console.log(GT);
-//
-//
-//
-// function returntype(number) {
+// for(i=0; i < hund; i ++) {
+//   v = i;
+//   var items = batch.slice(i, 100);
+//   client.bulk({
+//     body: items,
+//   }, function (err, resp) {
+//     // ...
+//   });
 //
 //
 // }
-//
+  console.log(f);
+  });
+
+
+  // async.eachSeries(_.range(20000), function (value, done) {
+  //     client.create({index: 'tests', type: 'test', body: {something: true, value: value}}, done);
+  // });
+
+
+
+
+
+
+
 function fillMap() {
   var map = {};
   map[0]= "water";
@@ -109,29 +137,18 @@ function fillMap() {
 
 
 
+
 function readArray() {
   return new Promise(function(resolve, reject) { fs.readFile(path, function(err, data) {
   if (err) throw err;
   dataArray = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
   var tiff = GeoTIFF.parse(dataArray);
-
-//console.log(tiff.getImageCount());
 var image = tiff.getImage();
- //var rasters = image.readRasters();
 
-// var rasterWindow = [0, 25, 4, 26]; // left, top, right, bottom
-//var samples = [0];
-//var rasters = image.readRasters({window: rasterWindow, samples: samples});
-//var rows = 296;
-//var columns = 720;
-//var mappingMap = (fillMap());
-//var rowstart = -180;
-//var columnstart = -640;
 var array = image.readRasters({interleave: true});
 resolve(array);
 
 });
-
 });
 
 }

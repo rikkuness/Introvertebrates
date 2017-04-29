@@ -14,6 +14,10 @@
     "uglify-js": "2"
   },
   "dependencies": {
-    "gdal": "^0.9.4"
+    "async": "^2.3.0",
+    "elastic-queue": "^0.3.0",
+    "elasticsearch": "13.0.0",
+    "gdal": "^0.9.4",
+    "underscore": "^1.8.3"
   }
 }
