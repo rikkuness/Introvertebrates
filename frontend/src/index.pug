@@ -19,10 +19,12 @@ html(lang='en', ng-app='trackwild', ng-controller='UserCtrl as user')
           .app-drawer-separator
           a.mdl-navigation__link(ui-sref='map') Map
           a.mdl-navigation__link(ui-sref='images') Images
-              
+
       //- Main layout
       .mdl-layout__content
         .mdl-logout(ng-show='user.user')
           div #[span(ng-bind='user.user.name')]
           a(href='/logout', target='_self') Logout
+        .mdl-logout(ng-hide='user.user')
+          a(href='#', ng-click='user.login()') Login
         .page-content(ui-view)
