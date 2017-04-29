@@ -1,14 +1,18 @@
 import angular from 'angular'
 import uirouter from 'angular-ui-router'
+import 'angular-simple-logger'
+import 'leaflet'
+import 'ui-leaflet'
 
 import './map.css'
+import 'leaflet/dist/leaflet.css'
 
 import routing from './map.routes'
-import HomeController from './map.controller'
 
-HomeController.$$ngIsClass = true
+import MapController from './map.controller'
+MapController.$$ngIsClass = true
 
-export default angular.module('app.map', [uirouter])
+export default angular.module('app.map', [uirouter, 'nemLogging', 'ui-leaflet'])
   .config(routing)
-  .controller('HomeController', HomeController)
+  .controller('MapController', MapController)
   .name
