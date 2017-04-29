@@ -3,7 +3,7 @@ Created on Oct 8, 2015
 
 @author: mentzera
 '''
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, Urllib3HttpConnection
 from elasticsearch.helpers import bulk
 import config
 from elasticsearch.exceptions import ElasticsearchException
@@ -22,9 +22,9 @@ def create_index(es,index_name,mapping):
     es.indices.create(index_name, body = {'mappings': mapping})
 
 
-def load(tweets):    
-    es = Elasticsearch(host = config.es_host, port = config.es_port)
-
+def load(tweets):
+    """Create an elasticserach connection using the environment variables 'ES_USER' and 'ES_PASS'"""
+    es = Elasticsearch(connection_class=Urllib3HttpConnection, host=config.es_host, port=config.es_port, http_auth=(os.getenv('ES_USER', 'user', os.getenv('ES_PASS')), use_ssl=True)
     if es.indices.exists(index_name):
         print ('index {} already exists'.format(index_name))
         try:
@@ -37,7 +37,7 @@ def load(tweets):
     else:
         print('index {} does not exist'.format(index_name))
         create_index(es, index_name, mapping)
-    
+
     counter = 0
     bulk_data = []
     list_size = len(tweets)
@@ -51,10 +51,10 @@ def load(tweets):
             }
         bulk_data.append(bulk_doc)
         counter+=1
-        
+
         if counter % bulk_chunk_size == 0 or counter == list_size:
             print "ElasticSearch bulk index (index: {INDEX}, type: {TYPE})...".format(INDEX=index_name, TYPE=doc_type)
             success, _ = bulk(es, bulk_data)
             print 'ElasticSearch indexed %d documents' % success
             bulk_data = []
-  
+
