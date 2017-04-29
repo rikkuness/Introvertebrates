@@ -24,7 +24,7 @@ def create_index(es,index_name,mapping):
 
 def load(tweets):
     """Create an elasticserach connection using the environment variables 'ES_USER' and 'ES_PASS'"""
-    es = Elasticsearch(connection_class=Urllib3HttpConnection, host=config.es_host, port=config.es_port, http_auth=(os.getenv('ES_USER', 'user', os.getenv('ES_PASS')), use_ssl=True)
+    es = Elasticsearch(connection_class=Urllib3HttpConnection, host=config.es_host, port=config.es_port, http_auth=(os.getenv('ES_USER', 'user'), os.getenv('ES_PASS')), use_ssl=True)
     if es.indices.exists(index_name):
         print ('index {} already exists'.format(index_name))
         try:
