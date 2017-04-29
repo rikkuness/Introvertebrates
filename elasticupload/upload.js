@@ -5,29 +5,20 @@ var gdal = require("gdal");
 var async = require('async');
 var _ = require('underscore');
 
-var ElasticQueue = require('elastic-queue');
-var batch = [];
-//var Queue = new ElasticQueue();
-
 var client = require('./client.js');
-// Queue.host = "https://user:spaceapps2017@e392e7556915b57b7106b1efaf1b4cf3.eu-west-1.aws.found.io:9243/";
-// Queue.on('task', function(batch) {
-//   return console.log("task", batch);
-// });
-//
-// Queue.on('batchComplete', function(resp) {
-//   return console.log("batch complete", resp);
-// });
-//
-// Queue.on('drain', function() {
-//   console.log("\n\nQueue is Empty\n\n");
-//   return Queue.close();
-// });
-
-//var client = require('./client.js');
+const Queue = async.cargo((dataPoints, callback) => {
+  console.log("upladoing:" + dataPoints.length);
+  client.bulk({
+    body: dataPoints
+  }, (err, resp) => {
+    console.log(err, resp);
+    callback(err,resp);
+  })
+}, 200);
 
 
- var path = "/Users/steven/Downloads/LC_hd_global_2012.tif";
+
+ var path = "/Users/steven/Downloads/LC_hd_global_2010.tif";
 
 var mapping = fillMap();
 
@@ -68,7 +59,24 @@ var numb = array[numberfinal -1];
   console.log("----end------");
 
 var habitat = mapping[numb];
-clientUpload(f, Yline, Xpixel, habitat, Xgeo, Ygeo);
+var date = new Date('2015 01 01');
+Queue.push({
+index: {
+_index: 'geotiffdates1',
+_type: 'pixels',
+_id: numberfinal+Yline+Xpixel+habitat+Xgeo+Ygeo+date,
+}});
+Queue.push({
+  year:new Date('2015 01 01'),
+  number:numb,
+  yline:Yline,
+  xpixel:Xpixel,
+  habitat:habitat,
+  coordinates: {
+    coordinates: [Xgeo, Ygeo]
+  }
+});
+
 
 
 }
@@ -128,32 +136,6 @@ function fillMap() {
 }
 
 
-function clientUpload(id, yline, xpixel, habitat, xgeo, ygeo) {
-  console.log(id+yline+xpixel+habitat+xgeo+ygeo);
-
-
-  var elasticDocument;
-
-elasticDocument = {
-  index: 'geotiff4',
-  type: 'pixels',
-  id: id+yline+xpixel+habitat+xgeo+ygeo,
-  body: {
-    "yline":yline,
-    "xpixel":xpixel,
-    "habitat":habitat,
-    "xgeo":xgeo,
-    "ygeo":ygeo
-  }
-};
-
-//Queue.push(elasticDocument);
-batch.push(elasticDocument);
-
-async.eachSeries(_.range(200), function (value, done) {
-    client.create(elasticDocument, done);
-});
-}
 
 
 function readArray() {
@@ -167,7 +149,6 @@ var array = image.readRasters({interleave: true});
 resolve(array);
 
 });
-
 });
 
 }
