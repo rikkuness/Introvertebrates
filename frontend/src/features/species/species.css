@@ -1,22 +1,26 @@
 .bear-card {
+  text-shadow: 0px 0px 7px #fff;
   background-image: url('./img/polarbear.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
 }
 .swallow-card {
+  text-shadow: 0px 0px 7px #fff;
   background-image: url('./img/barn-swallow.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
 }
 .turtle-card {
+  text-shadow: 0px 0px 7px #fff;
   background-image: url('./img/hawksbill.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
 }
 .elk-card {
+  text-shadow: 0px 0px 7px #fff;
   background-image: url('./img/rooseveltelk.jpg');
   background-size: cover;
   background-repeat: no-repeat;
