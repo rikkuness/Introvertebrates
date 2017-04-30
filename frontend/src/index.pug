@@ -12,14 +12,15 @@ html(lang='en', ng-app='trackwild', ng-controller='UserCtrl as user')
     .mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer
       .app-drawer.mdl-layout__drawer
         .mdl-layout-title
-          .logo
-            h3.logo-text TrackWild
+          .logo(ui-sref='home')
+            h3.logo-text(ui-sref='home') TrackWild
 
         nav.mdl-navigation
-          a.mdl-navigation__link(ui-sref='home') Home
           .app-drawer-separator
           a.mdl-navigation__link(ui-sref='map') Near Me
           a.mdl-navigation__link(ui-sref='species') Species
+          .mdl-layout-spacer
+          a.mdl-navigation__link(ui-sref='about') About
 
       //- Main layout
       .mdl-layout__content
