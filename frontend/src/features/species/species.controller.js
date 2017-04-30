@@ -22,18 +22,18 @@ export default class SpeciesController {
         break
       case "hawksbill":
         this.data = {
-          name:         'Hawksbill Turtle',
-          latinname:    '',
-          overview:     '',
-          habitat:      ''
+          name:         'Hawksbill Sea Turtle',
+          latinname:    'Eretmochelys imbricata',
+          overview:     'The hawksbill sea turtle is a critically endangered sea turtle belonging to the family Cheloniidae. It is the only extant species in the genus Eretmochelys. The species has a worldwide distribution, with Atlantic and Indo-Pacific subspecies—E. i. imbricata and E. i. bissa, respectively.',
+          habitat:      'Adult hawksbill sea turtles are primarily found in tropical coral reefs. They are usually seen resting in caves and ledges in and around these reefs throughout the day. As a highly migratory species, they inhabit a wide range of habitats, from the open ocean to lagoons and even mangrove swamps in estuaries.'
         }
         break
-         case "North American Elk":
+      case "elk":
         this.data = {
           name:         'North American Elk',
           latinname:    'Cervus canadensis',
-          overview:     'The barn swallow is the most widespread species of swallow in the world. It is a distinctive passerine bird with blue upperparts, a long, deeply forked tail and curved, pointed wings. It is found in Europe, Asia, Africa and the Americas.',
-          habitat:      'The preferred habitat of the barn swallow is open country with low vegetation, such as pasture, meadows and farmland, preferably with nearby water. This swallow avoids heavily wooded or precipitous areas and densely built-up locations. The presence of accessible open structures such as barns, stables, or culverts to provide nesting sites, and exposed locations such as wires, roof ridges or bare branches for perching, are also important in the bird\'s selection of its breeding range.'
+          overview:     'The elk, or wapiti, is one of the largest species within the deer family, Cervidae, in the world, and one of the largest land mammals in North America and Eastern Asia. This animal should not be confused with the still larger moose (Alces alces) to which the name "elk" applies in British English and in reference to populations in Eurasia.',
+          habitat:      null
         }
         break
       default:
