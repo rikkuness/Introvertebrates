@@ -38,3 +38,5 @@ jspm_packages
 
 # frontend exclusions
 frontend/dist/
+
+.vscode

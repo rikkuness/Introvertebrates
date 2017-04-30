@@ -1,5 +1,60 @@
+import elasticsearch from 'elasticsearch'
+
+// Connect to Elasticsearch
+const esclient = new elasticsearch.Client({
+  host: 'https://e392e7556915b57b7106b1efaf1b4cf3.eu-west-1.aws.found.io:9243/',
+  log: 'trace',
+  httpAuth: 'readonly:spaceappschallenge'
+});
+
+function findPointsAround(x, y, radius) {
+  return esclient.search({
+    index: 'twitter',
+    type: 'tweet',
+    body: {
+      "query": {
+        "bool": {
+          "must": {
+            "match_all": {}
+          },
+          "filter": {
+            "geo_distance": {
+              "distance": radius + "km",
+              "coordinates.coordinates": {
+                "lat": x,
+                "lon": y
+              }
+            }
+          }
+        }
+      }
+    }
+  })
+}
+
+function populateTweetMarkers(mapController) {
+  findPointsAround(
+          mapController.center.lat,
+          mapController.center.lng,
+          500 // TODO: Base this on the current zoom
+        ).then((r) => {
+          // Remove all current markers
+          mapController.markers = {}
+
+          // Place each marker on the map
+          r.hits.hits.map((o) => {
+            mapController.markers[o._id] = {
+              lat: o._source.coordinates.coordinates[1],
+              lng: o._source.coordinates.coordinates[0],
+              message: o._source.text
+            }
+          })
+      })
+}
+
 export default class MapController {
-  constructor(leafletData) {
+  constructor(leafletData, $scope, leafletMapEvents) {
+
     this.markers = {
       test: {
         lat: 51.510,
@@ -35,5 +90,29 @@ export default class MapController {
       zoom: 8
     }
 
+    // Register events to listen on
+    this.events = {
+      map: {
+        enable: ['dragend'],
+        logic: 'emit'
+      }
+    }
+
+    // Event listeners
+    let self = this
+
+    $scope.$on('leafletDirectiveMap.map.dragend', (e) => {
+      console.log("dragend")
+      populateTweetMarkers(self)
+    })
+
+    // ALL THE HACKINESS
+    // Initial call to populate markers
+    populateTweetMarkers(self)
+
+    // Pan to center point to trigger map update
+    leafletData.getMap('map').then(map => {
+      map.panTo([51, 0])
+    })
   }
 }
