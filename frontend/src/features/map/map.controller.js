@@ -107,6 +107,7 @@ export default class MapController {
       index: 'twitter',
       type: 'tweet',
       body: {
+        "size": 50,
         "query": {
           "bool": {
             "must": {
