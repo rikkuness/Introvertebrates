@@ -88,7 +88,7 @@ function twitterStreamProducer(firehose) {
 
   function _sendToFirehose() {
     // var locations = [ '-180,-90,180,90' ]; //all the world
-    var stream = T.stream('statuses/filter', {track: '#trackwild, introvertebr8s, introvertebrates'});
+    var stream = T.stream('statuses/filter', {track: ['#trackwild', 'introvertebr8s', 'introvertebrates']});
     var records = [];
     var record = {};
     var recordParams = {};
@@ -105,7 +105,6 @@ function twitterStreamProducer(firehose) {
               log.error(err);
             }
           });
-
     });
   }
 
