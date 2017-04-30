@@ -67,7 +67,6 @@ app.get('/auth', (req, res) => res.json({
 app.get('/callback',
   passport.authenticate('auth0', { failureRedirect: '/login' }),
   (req, res) => {
-    console.log(req.user)
     if (!req.user) throw new Error('user null')
     res.redirect('/')
   }

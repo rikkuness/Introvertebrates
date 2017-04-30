@@ -1,11 +1,13 @@
 import swallow_data from './swallow_data.json'
+import elasticsearch from 'elasticsearch'
 
 export default class MapController {
-  constructor(leafletData) {
+  constructor(leafletData, $scope, leafletMapEvents) {
+
     this.markers = {
       test: {
-        lat: 51.510,
-        lng: -0.06,
+        lat: 50.727255,
+        lng: -3.474373,
         message: 'Hello there'
       }
     }
@@ -15,7 +17,7 @@ export default class MapController {
     this.layers = {
       baselayers: {
         osm: {
-          name: 'OpenStreetMap',
+          name: 'Basic',
           url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
           type: 'xyz'
         }
@@ -32,10 +34,34 @@ export default class MapController {
 
     // Example center for now
     this.center = {
-      lat: 51.505,
-      lng: -0.09,
+      lat: 50.727255,
+      lng: -3.474373,
       zoom: 8
     }
 
+    // Register events to listen on
+    this.events = {
+      map: {
+        enable: ['dragend'],
+        logic: 'emit'
+      }
+    }
+
+    // Event listeners
+    let self = this
+
+    $scope.$on('leafletDirectiveMap.map.dragend', (e) => {
+      console.log("dragend")
+      populateTweetMarkers(self)
+    })
+
+    // ALL THE HACKINESS
+    // Initial call to populate markers
+    populateTweetMarkers(self)
+
+    // Pan to center point to trigger map update
+    leafletData.getMap('map').then(map => {
+      map.panTo([51, 0])
+    })
   }
 }
