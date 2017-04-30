@@ -10,6 +10,8 @@ import resource from 'angular-resource'
 import 'material-design-lite'
 import 'material-design-icons/iconfont/material-icons.css'
 
+import 'typeface-roboto'
+
 import 'moment'
 import moment from 'angular-moment'
 
