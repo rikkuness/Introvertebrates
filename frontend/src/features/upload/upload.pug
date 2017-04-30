@@ -1,16 +1,25 @@
 h4 Upload Sighting
 form
   .row
+    h6 Enter Coordinates
     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-      input#name.mdl-textfield__input(type='text')
+      input#lat.mdl-textfield__input(type='text')
       |  
-      label.mdl-textfield__label(for='name') Name
+      label.mdl-textfield__label(for='lat') Lat
   .row
+    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+      input#long.mdl-textfield__input(type='text')
+      |  
+      label.mdl-textfield__label(for='long') Long
+  .row
+    h6 Add a comment
     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
       textarea#comment.mdl-textfield__input(type='text', rows='3')
       |  
       label.mdl-textfield__label(for='comment') Comment
-  
+
   .row
-    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(style='background-color: #297c45;') Upload
+    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(style='background-color: #297c45;') Upload Data
+
+    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(style='background-color: #297c45; margin-left: 4px;') Upload Image
 

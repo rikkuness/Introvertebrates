@@ -28,6 +28,14 @@ export default class SpeciesController {
           habitat:      ''
         }
         break
+         case "North American Elk":
+        this.data = {
+          name:         'North American Elk',
+          latinname:    'Cervus canadensis',
+          overview:     'The barn swallow is the most widespread species of swallow in the world. It is a distinctive passerine bird with blue upperparts, a long, deeply forked tail and curved, pointed wings. It is found in Europe, Asia, Africa and the Americas.',
+          habitat:      'The preferred habitat of the barn swallow is open country with low vegetation, such as pasture, meadows and farmland, preferably with nearby water. This swallow avoids heavily wooded or precipitous areas and densely built-up locations. The presence of accessible open structures such as barns, stables, or culverts to provide nesting sites, and exposed locations such as wires, roof ridges or bare branches for perching, are also important in the bird\'s selection of its breeding range.'
+        }
+        break
       default:
         this.data = { error: 'We couldn\'t find that species.' }
     }
