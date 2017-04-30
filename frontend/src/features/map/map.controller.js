@@ -1,3 +1,4 @@
+import swallow_data from './swallow_data.json'
 import elasticsearch from 'elasticsearch'
 
 export default class MapController {
