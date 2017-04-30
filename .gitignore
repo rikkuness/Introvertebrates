@@ -39,4 +39,5 @@ jspm_packages
 # frontend exclusions
 frontend/dist/
 
+secrets.sh
 .vscode

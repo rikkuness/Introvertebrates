@@ -10,6 +10,8 @@ import resource from 'angular-resource'
 import 'material-design-lite'
 import 'material-design-icons/iconfont/material-icons.css'
 
+import 'typeface-roboto'
+
 import 'moment'
 import moment from 'angular-moment'
 
@@ -22,9 +24,9 @@ UserCtrl.$$ngIsClass = true
 
 // Load all features
 import home from './features/home'
-import images from './features/images'
+import species from './features/species'
 import map from './features/map'
 
-angular.module('trackwild', [uirouter, moment, resource, home, images, map])
+angular.module('trackwild', [uirouter, moment, resource, home, species, map])
   .controller('UserCtrl', UserCtrl)
   .config(routing)

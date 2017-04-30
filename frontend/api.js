@@ -1,9 +1,10 @@
 const router = require('express').Router()
 
-router.get('/user', (req, res) => res.json({
-  name: req.user.displayName,
-  ign: req.user._json.user_metadata.ign,
-  admin: req.user._json.app_metadata.admin
-}))
+router.get('/user', (req, res) => {
+  if (!req.user) return res.status(401)
+  res.json({
+    name: req.user.displayName
+  })
+})
 
 module.exports = router

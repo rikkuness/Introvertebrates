@@ -10,36 +10,29 @@ const app           = express(),
       HTML_FILE     = path.join(DIST_DIR, 'index.html'),
       isDevelopment = process.env.NODE_ENV !== 'production'
 
-let auth0settings = {}
+let auth0settings = {
+  domain:       process.env.auth0domain || '',
+  clientID:     process.env.auth0clientID || '',
+  clientSecret: process.env.auth0clientSecret || '',
+  callbackURL:  process.env.auth0callbackURL || 'http://localhost:3000/callback',
+  secret:       process.env.auth0secret || 'totesSecret'
+}
 
 if (isDevelopment) {
-  auth0settings = {
-    domain:       '',
-    clientID:     '',
-    clientSecret: '',
-    callbackURL:  ''
-  }
   app.use(session({
-    secret: 'sosig',
+    secret: auth0settings.secret,
     resave: false,
     saveUninitialized: true,
   }))
 } else {
-  auth0settings = {
-    domain:       '',
-    clientID:     '',
-    clientSecret: '',
-    callbackURL:  ''
-  }
   app.set('trust proxy', 1)
   app.use((req, res, next) => {
-    if(req.headers["x-forwarded-proto"] === "https"){
-      return next()
-    }
+    if(req.headers["x-forwarded-proto"] === "https") return next()
     res.redirect('https://' + req.hostname + req.url)
   })
+
   app.use(session({
-    secret: 'blerglhlehlelhel',
+    secret: auth0settings.secret,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true }
@@ -51,32 +44,19 @@ app.use(require('body-parser').json())
 app.set('port', process.env.PORT || 3000);
 
 // Authentication middleware
-// const strategy = new Auth0Strategy(auth0settings,
-//   (accessToken, refreshToken, extraParams, profile, done) => {
-//     return done(null, profile)
-//   }
-// )
+const strategy = new Auth0Strategy(auth0settings,
+  (accessToken, refreshToken, extraParams, profile, done) => {
+    return done(null, profile)
+  }
+
+)
 passport.serializeUser((user, done) => done(null, user))
 passport.deserializeUser((user, done) => done(null, user))
 
+passport.use(strategy)
+
 app.use(passport.initialize())
 app.use(passport.session())
-
-//passport.use(strategy)
-
-const expressWs = require('express-ws')(app)
-
-// Chat server
-app.ws('/ws', (ws, req) => {
-  if (!req.user) return ws.close()
-
-  // ws.send(JSON.stringify({ type: 'EXAMPLE', content: msgs }))
-
-  // Message received
-  ws.on('message', (data) => {
-    console.log(data)
-  })
-})
 
 app.get('/auth', (req, res) => res.json({
   domain:       strategy.options.domain,

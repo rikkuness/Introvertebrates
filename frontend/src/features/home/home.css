@@ -1,0 +1,22 @@
+.logo-text-main {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+}
+.logo-main {
+
+  text-align: center;
+  background-image: url('../../img/birdfoot.svg');
+}
+
+@media only screen and (max-width: 1024px) {
+  .logo-main { width: 100vw; }
+}
+
+@media only screen and (min-width: 1024px) {
+  .logo-main { width: calc(100vw - 240px); }
+}
+
+.home-panel {
+  margin-left: -20px;
+  padding-top: 25vh;
+}
