@@ -26,7 +26,8 @@ UserCtrl.$$ngIsClass = true
 import home from './features/home'
 import species from './features/species'
 import map from './features/map'
+import upload from './features/upload'
 
-angular.module('trackwild', [uirouter, moment, resource, home, species, map])
+angular.module('trackwild', [uirouter, moment, resource, home, species, map, upload])
   .controller('UserCtrl', UserCtrl)
   .config(routing)
