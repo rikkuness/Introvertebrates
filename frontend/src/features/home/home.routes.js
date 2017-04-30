@@ -6,4 +6,8 @@ export default function routes($stateProvider) {
       url: '/',
       template: require('./home.pug')()
     })
+    .state('about', {
+      url: '/about',
+      template: require('./about.pug')()
+    })
 }
