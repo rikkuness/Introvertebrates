@@ -1,3 +1,5 @@
+import swallow_data from './swallow_data.json'
+
 export default class MapController {
   constructor(leafletData) {
     this.markers = {
@@ -7,8 +9,8 @@ export default class MapController {
         message: 'Hello there'
       }
     }
-
-    this.paths = {}
+    console.log(swallow_data)
+    this.paths = {swallow : {color: 'red', weight: 3, latlngs: swallow_data}}
 
     this.layers = {
       baselayers: {
