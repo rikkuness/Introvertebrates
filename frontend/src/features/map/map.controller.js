@@ -49,6 +49,15 @@ function populateTweetMarkers(mapController) {
               message: o._source.text
             }
           })
+
+          // Fix marker src (This is fine, just leave it. It's fine. Fine... I need a hug)
+          setTimeout(() => {
+            let els = document.querySelectorAll(".leaflet-marker-icon")
+            console.log(els)
+            for (var i = 0; i < els.length; i++) {
+              els[i].src = els[i].src.split(/("|%22)\)/)[0]
+            }
+          }, 200)
       })
 }
 
