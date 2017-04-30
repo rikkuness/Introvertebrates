@@ -1,5 +1,6 @@
 import swallow_data from './swallow_data.json'
 import elasticsearch from 'elasticsearch'
+import randomcolor from 'randomcolor'
 
 export default class MapController {
   constructor(leafletData, $scope, leafletMapEvents) {
@@ -47,6 +48,8 @@ export default class MapController {
     // Initial call to populate markers
     this.populateTweetMarkers(self)
 
+    this.loadPaths(swallow_data)
+
     // Pan to center point to trigger map update
     leafletData.getMap('map').then(map => {
       map.panTo([51, 0])
@@ -56,7 +59,7 @@ export default class MapController {
   connectEs() {
     this.esclient = new elasticsearch.Client({
       host: 'https://e392e7556915b57b7106b1efaf1b4cf3.eu-west-1.aws.found.io:9243/',
-      log: 'trace',
+      //log: 'trace',
       httpAuth: 'readonly:spaceappschallenge'
     })
   }
@@ -103,6 +106,20 @@ export default class MapController {
           message: o._source.text
         }
       })
+    })
+  }
+
+  loadPaths(data){
+    data.forEach(a => {
+      if (!this.paths.hasOwnProperty(a['tag-local-identifier'])) {
+        this.paths[a['tag-local-identifier']] = {
+          color: randomcolor(),
+          weight: 2,
+          latlngs: [],
+          label: '<h5>'+a['study-name']+'</h5><i>'+a['individual-taxon-canonical-name']+'</i>'
+        }
+      }
+      this.paths[a['tag-local-identifier']].latlngs.push(a)
     })
   }
 }
