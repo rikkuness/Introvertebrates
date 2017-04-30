@@ -45604,19 +45604,6 @@
     "study-name": "Argentine Barn Swallows"
   },
   {
-    "event-id": 2549648021,
-    "visible": "true",
-    "timestamp": "2014-10-02 21:39:52.000",
-    "lng": "",
-    "lat": "",
-    "location-error-text": "-9.45:-54.41:7.65:-49.87",
-    "sensor-type": "solar-geolocator",
-    "individual-taxon-canonical-name": "Hirundo rustica",
-    "tag-local-identifier": "H988",
-    "individual-local-identifier": "H988",
-    "study-name": "Argentine Barn Swallows"
-  },
-  {
     "event-id": 2549648022,
     "visible": "true",
     "timestamp": "2014-10-03 08:58:23.000",

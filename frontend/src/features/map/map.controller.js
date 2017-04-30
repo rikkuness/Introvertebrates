@@ -139,7 +139,6 @@ export default class MapController {
       // Place each marker on the map
       r.hits.hits.map((o) => {
         let tweet = o._source
-        console.log(tweet)
         let image = tweet.image ?
           '<a href="'+tweet.image+'"><img src="'+tweet.image+'"></a>' : ''
 
@@ -161,15 +160,17 @@ export default class MapController {
 
   loadPaths(data){
     data.forEach(a => {
-      if (!this.paths.hasOwnProperty(a['tag-local-identifier'])) {
-        this.paths[a['tag-local-identifier']] = {
-          color: randomcolor(),
-          weight: 2,
-          latlngs: [],
-          label: '<h5>'+a['study-name']+'</h5><i>'+a['individual-taxon-canonical-name']+'</i>'
+      try {
+        if (!this.paths.hasOwnProperty(a['tag-local-identifier'])) {
+          this.paths[a['tag-local-identifier']] = {
+            color: randomcolor(),
+            weight: 2,
+            latlngs: [],
+            label: '<h5>'+a['study-name']+'</h5><i>'+a['individual-taxon-canonical-name']+'</i>'
+          }
         }
-      }
-      this.paths[a['tag-local-identifier']].latlngs.push(a)
+        this.paths[a['tag-local-identifier']].latlngs.push(a)
+      } catch (err) {}
     })
   }
 }
