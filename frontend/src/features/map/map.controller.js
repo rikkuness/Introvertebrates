@@ -131,7 +131,7 @@ export default class MapController {
     this.findPointsAround(
       mapController.center.lat,
       mapController.center.lng,
-      500 // TODO: Base this on the current zoom
+      50000 // TODO: Base this on the current zoom
     ).then((r) => {
       // Remove all current markers
       mapController.markers = {}
@@ -139,10 +139,14 @@ export default class MapController {
       // Place each marker on the map
       r.hits.hits.map((o) => {
         let tweet = o._source
+        console.log(tweet)
+        let image = tweet.image ?
+          '<a href="'+tweet.image+'"><img src="'+tweet.image+'"></a>' : ''
+
         mapController.markers[o._id] = {
           lat: tweet.coordinates.coordinates[1],
           lng: tweet.coordinates.coordinates[0],
-          message: '<b>'+tweet.user.name+'</b><p>'+tweet.text+'</p>',
+          message: image+'<b>'+tweet.user.name+'</b><p>'+tweet.text+'</p>',
           icon: {
             type: 'extraMarker',
             icon: 'fa-twitter',

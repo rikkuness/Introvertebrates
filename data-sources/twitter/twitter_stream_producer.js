@@ -88,15 +88,12 @@ function twitterStreamProducer(firehose) {
 
   function _sendToFirehose() {
     // var locations = [ '-180,-90,180,90' ]; //all the world
-    var stream = T.stream('statuses/filter', {track: '#trackwild'});
-    console.log(stream)
+    var stream = T.stream('statuses/filter', {track: ['#trackwild', 'introvertebr8s', 'introvertebrates']});
     var records = [];
     var record = {};
     var recordParams = {};
     stream.on('tweet', function (tweet) {
-      if (tweet.coordinates){
-        if (tweet.coordinates != null){ 
-          console.log(tweet.text+' from '+tweet.coordinates)
+          console.log(tweet)
           recordParams = {
               DeliveryStreamName: config.firehose.DeliveryStreamName,
               Record: {
@@ -108,13 +105,6 @@ function twitterStreamProducer(firehose) {
               log.error(err);
             }
           });
-           
-        } 
-      } else {
-        // This would be a perfect place to trigger a Twitter Bot to respond to 
-        // the user requesting location information or to enable location information through Twitter.
-        console.log('Tweet received from '+tweet.user.name+' but no coordinates were found.')
-      }
     });
   }
 
