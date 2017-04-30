@@ -8,18 +8,7 @@ Created on Oct 20, 2015
 import re
 from textblob import TextBlob
 
-class Sentiments:
-    POSITIVE = 'Positive'
-    NEGATIVE = 'Negative'
-    NEUTRAL = 'Neutral'
-    CONFUSED = 'Confused'
-    
 id_field = 'id_str'
-emoticons = {Sentiments.POSITIVE:'😀|😁|😂|😃|😄|😅|😆|😇|😈|😉|😊|😋|😌|😍|😎|😏|😗|😘|😙|😚|😛|😜|😝|😸|😹|😺|😻|😼|😽',
-             Sentiments.NEGATIVE : '😒|😓|😔|😖|😞|😟|😠|😡|😢|😣|😤|😥|😦|😧|😨|😩|😪|😫|😬|😭|😾|😿|😰|😱|🙀',
-             Sentiments.NEUTRAL : '😐|😑|😳|😮|😯|😶|😴|😵|😲',
-             Sentiments.CONFUSED: '😕'
-             }
 
 tweet_mapping = {'properties': 
                     {'timestamp_ms': {
@@ -56,47 +45,70 @@ tweet_mapping = {'properties':
                     }
                  }
 
-def _sentiment_analysis(tweet):
-    tweet['emoticons'] = []
-    tweet['sentiments'] = []
-    _sentiment_analysis_by_emoticons(tweet)
-    if len(tweet['sentiments']) == 0:
-        _sentiment_analysis_by_text(tweet)
+def extract_location(doc):
+    """ "place":
+{
+    "attributes":{},
+     "bounding_box":
+    {
+        "coordinates":
+        [[
+                [-77.119759,38.791645],
+                [-76.909393,38.791645],
+                [-76.909393,38.995548],
+                [-77.119759,38.995548]
+        ]],
+        "type":"Polygon"
+    },
+     "country":"United States",
+     "country_code":"US",
+     "full_name":"Washington, DC",
+     "id":"01fbe706f872cb32",
+     "name":"Washington",
+     "place_type":"city",
+     "url": "http://api.twitter.com/1/geo/id/01fbe706f872cb32.json"
+}"""
 
 
-def _sentiment_analysis_by_emoticons(tweet):
-    for sentiment, emoticons_icons in emoticons.iteritems():
-        matched_emoticons = re.findall(emoticons_icons, tweet['text'].encode('utf-8'))
-        if len(matched_emoticons) > 0:
-            tweet['emoticons'].extend(matched_emoticons)
-            tweet['sentiments'].append(sentiment)
-    
-    if Sentiments.POSITIVE in tweet['sentiments'] and Sentiments.NEGATIVE in tweet['sentiments']:
-        tweet['sentiments'] = Sentiments.CONFUSED
-    elif Sentiments.POSITIVE in tweet['sentiments']:
-        tweet['sentiments'] = Sentiments.POSITIVE
-    elif Sentiments.NEGATIVE in tweet['sentiments']:
-        tweet['sentiments'] = Sentiments.NEGATIVE
+    try:
+        if doc['coordinates']:
+            return doc['coordiantes']
+    except:
+        pass
 
-def _sentiment_analysis_by_text(tweet):
-    blob = TextBlob(tweet['text'].decode('ascii', errors="replace"))
-    sentiment_polarity = blob.sentiment.polarity
-    if sentiment_polarity < 0:
-        sentiment = Sentiments.NEGATIVE
-    elif sentiment_polarity <= 0.2:
-                sentiment = Sentiments.NEUTRAL
-    else:
-        sentiment = Sentiments.POSITIVE
-    tweet['sentiments'] = sentiment
-    
+    try:
+        if doc['place']:
+            lat, lon = doc['place']['bounding_box'][0][0][0]
+            return {'coordinates': [lat, lon]}
+    except:
+        pass
+
+    # Extract exif data?
+
+    return None
+
 def get_tweet(doc):
     tweet = {}
     tweet[id_field] = doc[id_field]
     tweet['hashtags'] = map(lambda x: x['text'],doc['entities']['hashtags'])
-    tweet['coordinates'] = doc['coordinates']
+
+    # Yes I know this may blow up... but thats fine, lambda will recover 
+    tweet['coordinates'] = extract_location(doc)
+
+    # Extract media url from quoted tweet
+    try:
+        tweet['image'] = doc['quoted_status']['entities']['media'][0]['media_url_https']
+    except:
+        pass
+
+    # Or for the actual tweet
+    try:
+        tweet['image'] = doc['entities']['media'][0]['media_url_https']
+    except:
+        pass
+
     tweet['timestamp_ms'] = doc['timestamp_ms'] 
     tweet['text'] = doc['text']
     tweet['user'] = {'id': doc['user']['id'], 'name': doc['user']['name']}
     tweet['mentions'] = re.findall(r'@\w*', doc['text'])
-    _sentiment_analysis(tweet)
     return tweet

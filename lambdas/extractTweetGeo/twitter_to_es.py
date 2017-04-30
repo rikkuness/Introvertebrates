@@ -43,6 +43,7 @@ def load(tweets):
     bulk_data = []
     list_size = len(tweets)
     for doc in tweets:
+        print(doc)
         tweet = get_tweet(doc)
         bulk_doc = {
             "_index": index_name,
