@@ -1,1 +1,20 @@
-h4 Species Information
+div(ng-hide='species.data.error')
+  h1.species-heading(ng-bind='species.data.name')
+  sub.latin
+    i(ng-bind='species.data.latinname')
+
+  hr
+    
+  p(ng-bind='species.data.overview')
+
+  div(ng-show='species.data.habitat')
+    h3 Habitat
+    p(ng-bind='species.data.habitat')
+
+  div(ng-show='species.data.conservation')
+    h3 Conservation
+    p(ng-bind='species.data.conservation')
+
+div(ng-show='species.data.error')
+  h2 Oops!
+  h4(ng-bind='species.data.error')
