@@ -21,3 +21,51 @@
   margin-left: -20px;
   padding-top: 25vh;
 }
+
+.sav-card {
+  background-image: url('./img/sav.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.hitch-card {
+  background-image: url('./img/hitch.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.bmg-card {
+  background-image: url('./img/bmg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.matt-card {
+  background-image: url('./img/matt.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.fraz-card {
+  background-image: url('./img/fraz.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.nick-card {
+  background-image: url('./img/nick.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+@media only screen and (max-width: 840px) {
+  .about-card { height: calc(((100vw - 16px) / 2) / 9 * 16); }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 840px) {
+  .about-card { height: calc(((100vw - 16px) / 3) / 9 * 16); }
+}
+
+@media only screen and (min-width: 1024px) {
+  .about-card { height: calc(((100vw - 256px) / 3) / 9 * 16); }
+}
