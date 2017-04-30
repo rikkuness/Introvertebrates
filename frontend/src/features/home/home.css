@@ -22,6 +22,8 @@
   padding-top: 25vh;
 }
 
+.about-card { color: #ddd; }
+
 .sav-card {
   background-image: url('./img/sav.jpg');
   background-size: cover;
