@@ -16,4 +16,10 @@
   background-repeat: no-repeat;
   background-position: center top;
 }
+.elk-card {
+  background-image: url('./img/rooseveltelk.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
 .species-heading { margin-bottom: 0px; }
