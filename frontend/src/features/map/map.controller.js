@@ -14,15 +14,25 @@ export default class MapController {
           name: 'Basic',
           url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
           type: 'xyz'
+        },
+        hills: {
+          name: 'Hillshade',
+          url: 'http://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png',
+          type: 'xyz'
+        },
+        landscape: {
+          name: 'Landscape',
+          url: 'http://a.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',
+          type: 'xyz'
         }
       }
     }
 
     // Example center for now
     this.center = {
-      lat: 50.727255,
-      lng: -3.474373,
-      zoom: 8
+      lat: -21.053744,
+      lng: -58.359375,
+      zoom: 4
     }
 
     // Register events to listen on
@@ -52,7 +62,7 @@ export default class MapController {
 
     // Pan to center point to trigger map update
     leafletData.getMap('map').then(map => {
-      map.panTo([51, 0])
+      map.panTo([this.center.lat, this.center.lng])
     })
   }
 

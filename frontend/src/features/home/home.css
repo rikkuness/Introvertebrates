@@ -3,10 +3,11 @@
   font-weight: 100;
 }
 .logo-main {
-
   text-align: center;
   background-image: url('../../img/birdfoot.svg');
 }
+
+.logo-main>sub { color: #8e8e8e; }
 
 @media only screen and (max-width: 1024px) {
   .logo-main { width: 100vw; }
