@@ -58,6 +58,34 @@ export default class MapController {
     // Initial call to populate markers
     this.populateTweetMarkers(self)
 
+
+    // Rough European Swallow data
+    this.paths.swallow1 = {
+      color: '#777',
+      weight: 3,
+      latlngs: [
+        {lat:52.635563, lng:-1.582031},
+        {lat:47.627455, lng:-0.175781},
+        {lat:40.604569, lng:-1.845703},
+        {lat:32.350963, lng:-6.767578},
+        {lat:25.511461, lng:-12.788086},
+      ]
+    }
+
+    // Rough European Swallow data
+    this.paths.swallow2 = {
+      color: '#777',
+      weight: 3,
+      latlngs: [
+        {lat:52.635563, lng:-1.582031},
+        {lat:47.419725, lng:2.856445},
+        {lat:40.470980, lng:-0.703125},
+        {lat:18.599395, lng:10.019531},
+        {lat:2.235151, lng:17.226563},
+        {lat:-27.103144, lng:20.742188},
+      ]
+    }
+
     this.loadPaths(swallow_data)
 
     // Pan to center point to trigger map update
