@@ -110,10 +110,18 @@ export default class MapController {
 
       // Place each marker on the map
       r.hits.hits.map((o) => {
+        let tweet = o._source
         mapController.markers[o._id] = {
-          lat: o._source.coordinates.coordinates[1],
-          lng: o._source.coordinates.coordinates[0],
-          message: o._source.text
+          lat: tweet.coordinates.coordinates[1],
+          lng: tweet.coordinates.coordinates[0],
+          message: '<b>'+tweet.user.name+'</b><p>'+tweet.text+'</p>',
+          icon: {
+            type: 'extraMarker',
+            icon: 'fa-twitter',
+            markerColor: 'cyan',
+            prefix: 'fa',
+            shape: 'circle'
+          }
         }
       })
     })
