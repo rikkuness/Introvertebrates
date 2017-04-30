@@ -15,13 +15,3 @@ TrackWild is a community-based tool that allows users to track, identify and con
 * Submit evidence of migratory species in the area - with the help of bird identification information, users can take pictures of and identify local birds, uploading them to the app to further track the progression of migration.
 * Compare data with previous years - calculate if animal presence is increasing or decreasing in an area by comparing data from previous years - with the aim of finding issues that are potential barriers or facilitators to migration. 
 * Submit weather conditions for their area at intervals - allowing for the correlation of weather data with population numbers.
-
-
-
-
-
-
-
-
-
-

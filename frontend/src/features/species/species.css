@@ -1,0 +1,19 @@
+.bear-card {
+  background-image: url('./img/polarbear.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.swallow-card {
+  background-image: url('./img/barn-swallow.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.turtle-card {
+  background-image: url('./img/hawksbill.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.species-heading { margin-bottom: 0px; }

@@ -10,6 +10,11 @@ export default class MapController {
 
     this.layers = {
       baselayers: {
+        landscape: {
+          name: 'Landscape',
+          url: 'http://a.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',
+          type: 'xyz'
+        },
         osm: {
           name: 'Basic',
           url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png',
@@ -18,11 +23,6 @@ export default class MapController {
         hills: {
           name: 'Hillshade',
           url: 'http://c.tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png',
-          type: 'xyz'
-        },
-        landscape: {
-          name: 'Landscape',
-          url: 'http://a.tile.thunderforest.com/landscape/{z}/{x}/{y}.png',
           type: 'xyz'
         }
       }
