@@ -1,4 +1,10 @@
-
-
 ## Installing packages for python
-sudo pip install $PACKAGENAME -t $(pwd)
+```
+pip install -t vendored -r requirements.txt
+```
+
+Then package it up for upload
+```
+cd extractTweetGeo
+zip -r ../s3_to_es.zip *
+```

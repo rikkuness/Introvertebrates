@@ -1,15 +1,17 @@
-'''
-Created on Oct 8, 2015
+## Update the path for lambda
 
-@author: mentzera
-'''
+import os
+import sys
+here = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(here, "./vendored"))
 
+
+#now actually run
 import json
 import boto3
 import twitter_to_es
 
 s3 = boto3.client('s3')
-
 def lambda_handler(event, context):
     print("Received event: " + json.dumps(event, indent=2))
 
