@@ -6,6 +6,7 @@ import './css/style.css'
 import angular from 'angular'
 import uirouter from 'angular-ui-router'
 import resource from 'angular-resource'
+import spinner from 'angular-spinners'
 
 import 'material-design-lite'
 import 'material-design-icons/iconfont/material-icons.css'
@@ -28,6 +29,6 @@ import species from './features/species'
 import map from './features/map'
 import upload from './features/upload'
 
-angular.module('trackwild', [uirouter, moment, resource, home, species, map, upload])
+angular.module('trackwild', [uirouter, moment, resource, home, species, map, upload, spinner])
   .controller('UserCtrl', UserCtrl)
   .config(routing)

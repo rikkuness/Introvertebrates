@@ -1,5 +1,6 @@
 import angular from 'angular'
 import uirouter from 'angular-ui-router'
+import spinner from 'angular-spinners'
 
 import './upload.css'
 
