@@ -20,7 +20,7 @@ export default class UploadController {
 
         }, function(err) {
           console.log("Geolocation failed")
-            $scope.$apply(function(){
+          $scope.$apply(function(){
           self.loading=false
           //$scope.loadingError = "Failed to get device geolocation"
 
