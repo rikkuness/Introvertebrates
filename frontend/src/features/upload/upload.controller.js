@@ -1,25 +1,40 @@
 export default class UploadController {
-  constructor($http, spinnerService) {
+  constructor($http, $scope) {
+    $scope.loading = true
     this._http = $http
-    this.lat = 0
-    this.long = 0
 
+    console.log($scope)
+    var self = $scope
     var button_ng = angular.element(document).ready(function(){
-      spinnerService.show('geoSpinner');
-      function showPosition(position){
-        this.lat = position.coords.latitude
-        this.long = position.coords.longitude
-        spinnerService.hide('geoSpinner');
 
-      }
-      
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-        console.log("Geolocation is not supported by this browser.")
-      }
-    }.bind(this))
+        navigator.geolocation.getCurrentPosition(function(position){
+          console.log("heleo")
+          console.log(self)
+          $scope.$apply(function(){
+            self.lat = position.coords.latitude
+            self.long = position.coords.longitude
+            self.loading=false
+            
+          })
 
+        }, function(err) {
+          console.log("Geolocation failed")
+            $scope.$apply(function(){
+          self.loading=false
+          //$scope.loadingError = "Failed to get device geolocation"
+
+            })
+        })
+      } else {
+         $scope.$apply(function(){
+          self.loading=false
+
+            })
+        console.log("Geolocation is not supported by this browser.")
+
+      }
+    })
   
   }
 }

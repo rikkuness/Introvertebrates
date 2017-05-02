@@ -1,18 +1,20 @@
 h4 Upload Sighting
 form
   .row
-    h6 Enter Coordinates
+  
+    h6 Enter Coordinates 
+    div.spinner {{loadingError}}
+    spinner(name='geoSpinner', img-src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/10607/spinner3.gif' show='loading') Attempting geolocation...
 
     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-      input#lat.mdl-textfield__input(ng-bind="lat", type='text')
+      input#lat.mdl-textfield__input(ng-model="lat", type='text')
       |  
-      label.mdl-textfield__label(for='lat') Lat
+      label.mdl-textfield__label(for='lat') lat
   .row
     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-      input#long.mdl-textfield__input(ng-bind="long", type='text')
+      input#long.mdl-textfield__input(ng-model="long", type='text', value=)
       |  
-      label.mdl-textfield__label(for='long') Long
-  .button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(style='background-color: #297c45;', ng-click="this.populateLocation()") Populate Location
+      label.mdl-textfield__label(for='long') long
   .row
     h6 Add a comment
     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label

@@ -10,6 +10,7 @@
     "angular-moment": "^1.0.1",
     "angular-resource": "^1.6.4",
     "angular-simple-logger": "^0.1.7",
+    "angular-spinners": "^3.1.2",
     "angular-ui-router": "^0.4.2",
     "auth0-lock": "^10.14.0",
     "babel-core": "^6.24.1",
