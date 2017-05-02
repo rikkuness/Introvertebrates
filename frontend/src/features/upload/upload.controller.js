@@ -1,22 +1,27 @@
 export default class UploadController {
-  constructor($http) {
+  constructor($http, $scope) {
     this._http = $http
-    this.lat = 0
-    this.long = 0
+    $scope.lat = "lat"
+    $scope.long = "long"
 
+    console.log($scope)
+    var self = $scope
     var button_ng = angular.element(document).ready(function(){
-      function showPosition(position){
-        this.lat = position.coords.latitude
-        this.long = position.coords.longitude
-      }
-      
+
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+        navigator.geolocation.getCurrentPosition(function(position){
+          console.log("heleo")
+          console.log(self)
+          $scope.$apply(function(){
+            self.lat = position.coords.latitude
+            self.long = position.coords.longitude
+          })
+
+        })
       } else {
         console.log("Geolocation is not supported by this browser.")
       }
-    }.bind(this))
-
+    })
   
   }
 }

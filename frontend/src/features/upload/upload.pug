@@ -4,15 +4,12 @@ form
     h6 Enter Coordinates
 
     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-      input#lat.mdl-textfield__input(ng-bind="lat", type='text')
-      |  
-      label.mdl-textfield__label(for='lat') Lat
+      input#lat.mdl-textfield__input(ng-model="lat", type='text')
+
   .row
     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-      input#long.mdl-textfield__input(ng-bind="long", type='text')
-      |  
-      label.mdl-textfield__label(for='long') Long
-  .button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(style='background-color: #297c45;', ng-click="this.populateLocation()") Populate Location
+      input#long.mdl-textfield__input(ng-model="long", type='text', value=)
+
   .row
     h6 Add a comment
     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
