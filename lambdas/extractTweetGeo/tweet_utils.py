@@ -5,8 +5,6 @@ import requests
 import exifread
 import StringIO
 
-from textblob import TextBlob
-
 id_field = 'id_str'
 
 tweet_mapping = {'properties': 
