@@ -3,7 +3,7 @@ form
   .row
   
     h6 Enter Coordinates 
-    div.spinner {{loadingError}}
+    div.spinner
     spinner(name='geoSpinner', img-src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/10607/spinner3.gif' show='loading') Attempting geolocation...
 
     .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
@@ -23,9 +23,12 @@ form
       label.mdl-textfield__label(for='comment') Comment
 
   .row
-   input(type='file',accept='image/*',ng-change='picChange(event)')
-   |
+  h6 Upload Image
+  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+   input(type='file',accept='image/*',ng-model='change',ng-change="change(event)")
+  .row
+  h6 Image Preview
+  .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
    canvas#capturedPhoto(width='500', height='400')
+  .row   
    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(style='background-color: #297c45;') Upload Data
-   button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(style='background-color: #297c45; margin-left: 4px;') Upload Image
-

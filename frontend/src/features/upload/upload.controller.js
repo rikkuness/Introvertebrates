@@ -36,7 +36,7 @@ export default class UploadController {
       }
     })
 
-    $scope.onChange = function picChange(evt) {
+    $scope.change = function (evt) {
       //bring selected photo in
       //get files captured through input
       var fileInput = evt.target.files;
