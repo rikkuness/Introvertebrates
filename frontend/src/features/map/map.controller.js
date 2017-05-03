@@ -133,12 +133,12 @@ export default class MapController {
       mapController.center.lat,
       mapController.center.lng,
       50000 // TODO: Base this on the current zoom
-    ).then((r) => {
+    ).then(r => {
       // Remove all current markers
       mapController.markers = {}
 
       // Place each marker on the map
-      r.hits.hits.map((o) => {
+      r.hits.hits.map(o => {
         let tweet = o._source
         let image = tweet.image ?
           '<a href="'+tweet.image+'"><img src="'+tweet.image+'"></a>' : ''
