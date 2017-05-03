@@ -36,7 +36,7 @@ export default class UploadController {
       }
     })
 
-    $scope.change = function (evt) {
+     function loadPhotoChange(evt) {
       //bring selected photo in
       //get files captured through input
       var fileInput = evt.target.files;
