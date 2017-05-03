@@ -25,7 +25,7 @@ form
   .row
   h6 Upload Image
   .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-   input(type='file',accept='image/*',ng-model='change',ng-change="change(event)")
+   input(type='file',accept='image/*',onchange="angular.element(this).scope().change()")
   .row
   h6 Image Preview
   .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
