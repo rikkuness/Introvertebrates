@@ -6,6 +6,8 @@
 
 @media only screen and (max-width: 1024px) {
   .map { width: 100vw; }
+
+  .leaflet-control-container>div:first-child { top: 50px; }
 }
 
 @media only screen and (min-width: 1024px) {
