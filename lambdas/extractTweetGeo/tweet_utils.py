@@ -1,12 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-'''
-Created on Oct 20, 2015
-
-@author: mentzera
-'''
 import re
-from textblob import TextBlob
+import requests
+import exifread
+import StringIO
 
 id_field = 'id_str'
 
@@ -45,6 +42,42 @@ tweet_mapping = {'properties':
                     }
                  }
 
+def _convert_to_degress(value):
+    """
+    Helper function to convert the GPS coordinates stored in the EXIF to degress in float format
+    :param value:
+    :type value: exifread.utils.Ratio
+    :rtype: float
+    """
+    d = float(value.values[0].num) / float(value.values[0].den)
+    m = float(value.values[1].num) / float(value.values[1].den)
+    s = float(value.values[2].num) / float(value.values[2].den)
+
+    return d + (m / 60.0) + (s / 3600.0)
+
+def get_exif_location(exif_data):
+    """
+    Returns the latitude and longitude, if available, from the provided exif_data (obtained through get_exif_data above)
+    """
+    lat = None
+    lon = None
+
+    gps_latitude = exif_data.get('GPS GPSLatitude')
+    gps_latitude_ref = exif_data.get('GPS GPSLatitudeRef')
+    gps_longitude = exif_data.get('GPS GPSLongitude')
+    gps_longitude_ref = exif_data.get('GPS GPSLongitudeRef')
+
+    if gps_latitude and gps_latitude_ref and gps_longitude and gps_longitude_ref:
+        lat = _convert_to_degress(gps_latitude)
+        if gps_latitude_ref.values[0] != 'N':
+            lat = 0 - lat
+
+        lon = _convert_to_degress(gps_longitude)
+        if gps_longitude_ref.values[0] != 'E':
+            lon = 0 - lon
+
+    return lat, lon
+
 def extract_location(doc):
     """ "place":
 {
@@ -72,7 +105,7 @@ def extract_location(doc):
 
     try:
         if doc['coordinates']:
-            return doc['coordiantes']
+            return doc['coordinates']
     except:
         pass
 
@@ -83,9 +116,20 @@ def extract_location(doc):
     except:
         pass
 
-    # Extract exif data?
+    # Extract exif data
+    try:
+        res = requests.get(doc['quoted_status']['entities']['media'][0]['media_url_http'])
+    except:
+        print ("Failed to get media for doc %s" % doc)
+
+    exif_data = exif.process_file(StringIO.StringIO(res.content))
+    exif_lat_lon = get_exif_location(exif_data)
+
+    if exif_lat_lon:
+        return {'coordinates': [exif_lat_lon[0], exif_lat_lon[1]]}
 
     return None
+
 
 def get_tweet(doc):
     tweet = {}
