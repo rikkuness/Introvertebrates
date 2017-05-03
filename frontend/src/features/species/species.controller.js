@@ -36,6 +36,14 @@ export default class SpeciesController {
           habitat:      null
         }
         break
+      case "new":
+        this.data = {
+          name:         'More to come',
+          latinname:    '...',
+          overview:     'This is just a template to show how easily more species can be added. More will be added later in version 1.0',
+          habitat:      null
+        }
+        break
       default:
         this.data = { error: 'We couldn\'t find that species.' }
     }
