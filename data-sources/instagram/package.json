@@ -1,0 +1,14 @@
+{
+  "name": "instagram-streaming-kinesis-node",
+  "version": "0.0.1",
+  "author": "Matt",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "aws-sdk": "2.x",
+    "instagram-realtime": "git+https://github.com/internet-research-labs/instagram-realtime.git#pull/18/head",
+    "log4js": "~0.6.22"
+  }
+}
