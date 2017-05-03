@@ -58,6 +58,12 @@
   font-weight: 100;
   color: white;
   padding-top: 110px;
+  margin-bottom: 10px;
+}
+
+.slogan {
+  font-style: italic;
+  color: #ddd;
 }
 
 .logo {
