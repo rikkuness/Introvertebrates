@@ -6,12 +6,12 @@ form
     div.spinner
     spinner(name='geoSpinner', img-src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/10607/spinner3.gif' show='loading') Attempting geolocation...
 
-    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-class="{'is-dirty': lat}")
       input#lat.mdl-textfield__input(ng-model="lat", type='text')
       |  
       label.mdl-textfield__label(for='lat') lat
   .row
-    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+    .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label(ng-class="{'is-dirty': long}")
       input#long.mdl-textfield__input(ng-model="long", type='text', value=)
       |  
       label.mdl-textfield__label(for='long') long
