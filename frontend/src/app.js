@@ -28,7 +28,8 @@ import home from './features/home'
 import species from './features/species'
 import map from './features/map'
 import upload from './features/upload'
+import leaderboard from './features/leaderboard'
 
-angular.module('trackwild', [uirouter, moment, resource, home, species, map, upload, spinner])
+angular.module('trackwild', [uirouter, moment, resource, home, species, map, upload, leaderboard, spinner])
   .controller('UserCtrl', UserCtrl)
   .config(routing)
