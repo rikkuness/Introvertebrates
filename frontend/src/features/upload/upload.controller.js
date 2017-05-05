@@ -42,22 +42,25 @@ export default class UploadController {
       }
 
       //window url 
-      var windowURL = $scope.window.URL || $scope.window.webkitURL;
+      var windowURL = self.URL || self.webkitURL;
 
       //picture url
       var picURL = windowURL.createObjectURL(fileInput[0]);
 
       //get canvas
-      var photoCanvas = angular.element("capturedPhoto");
+      var photoCanvas = document.getElementById("capturedPhoto");
 
       var ctx = photoCanvas.getContext("2d");
+
+   //   ctx.canvas.width  = self.innerWidth;
+    //  ctx.canvas.height = self.innerHeight;
 
       //create image
       var photo = new Image();
 
       photo.onload = function () {
         //draw photo into canvas when ready
-        ctx.drawImage(photo, 0, 0, 500, 400);
+        ctx.drawImage(photo, 0, 0), 125, 200;
       };
 
       //load photo into canvas

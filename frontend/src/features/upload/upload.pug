@@ -25,10 +25,10 @@ form
   .row
   h6 Upload Image
   .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-   input(type='file',accept='image/*',onchange="angular.element(this).scope().change()")
+   input(type='file',accept='image/*',onchange='angular.element(this).scope().change(event)')
   .row
   h6 Image Preview
   .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
-   canvas#capturedPhoto(width='500', height='400')
+   canvas#capturedPhoto(width='125', height='200')
   .row   
    button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored(style='background-color: #297c45;') Upload Data
