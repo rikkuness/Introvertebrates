@@ -102,7 +102,6 @@ def extract_location(doc):
      "url": "http://api.twitter.com/1/geo/id/01fbe706f872cb32.json"
 }"""
 
-
     try:
         if doc['coordinates']:
             return doc['coordinates']
@@ -111,18 +110,32 @@ def extract_location(doc):
 
     try:
         if doc['place']:
-            lat, lon = doc['place']['bounding_box'][0][0][0]
+            lat, lon = doc['place']['bounding_box']['coordinates'][0][0]
             return {'coordinates': [lat, lon]}
-    except:
+    except KeyError:
         pass
 
+
+    tweet_image_url = None
     # Extract exif data
     try:
-        res = requests.get(doc['quoted_status']['entities']['media'][0]['media_url_http'])
-    except:
-        print ("Failed to get media for doc %s" % doc)
+        tweet_image_url = doc['quoted_status']['entities']['media'][0]['media_url_http']
+    except KeyError, e:
+        pass
 
-    exif_data = exif.process_file(StringIO.StringIO(res.content))
+    try:
+        tweet_image_url = doc['entities']['media'][0]['media_url_http']
+    except KeyError, e:
+        pass
+
+
+    if tweet_image_url is None:
+        print ("Failed to extract image_url")
+        return None
+    else:
+        res = requests.get(tweet_image_url)
+
+    exif_data = exifread.process_file(StringIO.StringIO(res.content))
     exif_lat_lon = get_exif_location(exif_data)
 
     if exif_lat_lon:
