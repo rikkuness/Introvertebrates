@@ -110,8 +110,18 @@ def extract_location(doc):
 
     try:
         if doc['place']:
-            lat, lon = doc['place']['bounding_box']['coordinates'][0][0]
-            return {'coordinates': [lat, lon]}
+            total_lat = 0
+            total_lon = 0
+      
+            for lat, lon in doc['place']['bounding_box']['coordinates'][0]:
+                total_lat += lat
+                total_lon += lon
+      
+            avg_lat = sum(total_lat) / float(len(total_lat))
+            avg_lon = sum(total_lon) / float(len(total_lon))
+            
+            #lat, lon = doc['place']['bounding_box']['coordinates'][0][0]
+            return {'coordinates': [avg_lat, avg_lon]}
     except KeyError:
         pass
 
