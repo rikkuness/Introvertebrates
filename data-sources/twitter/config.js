@@ -19,8 +19,8 @@ var config = module.exports = {
  firehose : {
   DeliveryStreamName: 'twitter-feed', /* required */
   S3DestinationConfiguration: {
-    BucketARN: 'arn:aws:s3:::introvertebrates-tweets', /* required if stream not exists */
-    RoleARN: 'arn:aws:iam::bmg@6082-7447-6677:role/firehose_delivery_role', /* required if stream not exists */
+    BucketARN: '', /* required if stream not exists */
+    RoleARN: '', /* required if stream not exists */
     BufferingHints: {
       IntervalInSeconds: 300,
       SizeInMBs: 5
