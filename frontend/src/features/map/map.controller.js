@@ -8,6 +8,10 @@ export default class MapController {
     this.markers = {}
     this.paths = {}
 
+
+
+    let me = this
+
     this.layers = {
       baselayers: {
         landscape: {
@@ -28,6 +32,60 @@ export default class MapController {
       }
     }
 
+
+angular.element(document).ready(function (me) {
+
+      if (navigator.geolocation) {
+
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+        self.center = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+              zoom: 8
+                  }
+
+        leafletData.getMap('map').then(map => {
+              map.panTo([self.center.lat, self.center.lng])
+            })
+
+ self.markers["HomeMarker"] = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          message: 'This is where you are currently, based on your geolocation',
+          icon: {
+            type: 'extraMarker',
+            icon: 'fa-home',
+            markerColor: 'red',
+            prefix: 'fa',
+            shape: 'circle'
+          }
+        }
+          //   self.L.markers(center,{draggable:false,title:"You Are Here",icon:self.homeIcon}).addTo(self).bindPopup("You are within some meters from this point");
+  
+  
+
+        }, function (err) {
+            self.center = {
+      lat: -21.053744,
+      lng: -58.359375,
+      zoom: 4
+    }
+          console.log("Geolocation failed")
+         
+          
+        })
+
+      } else {
+        self.center = {
+      lat: -21.053744,
+      lng: -58.359375,
+      zoom: 4
+    }
+        console.log("Geolocation is not supported by this browser.")
+
+      }
+    })
     // Example center for now
     this.center = {
       lat: -21.053744,
